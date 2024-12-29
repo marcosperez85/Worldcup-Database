@@ -1,4 +1,5 @@
--- Dar permiso de ejecución a los scripts. Esto es un punto posterior pero necesito hacerlo al principio dado que aun no estoy logueado a la base de datos
+-- Dar permiso de ejecución a los scripts. 
+-- Esto es un punto posterior pero necesito hacerlo al principio dado que aun no estoy logueado a la base de datos
 chmod +x *.sh
 
 -- Loguearse a SQL
