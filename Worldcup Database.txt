@@ -39,8 +39,3 @@ ALTER COLUMN opponent_goals SET NOT NULL;
 
 ALTER TABLE teams ALTER COLUMN team_id SET NOT NULL,
 ALTER COLUMN name SET NOT NULL;
-
-/*
-echo "$($PSQL "INSERT INTO teams(name) VALUES")"
-
-*/
