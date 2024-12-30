@@ -20,5 +20,12 @@ do
     # Agregar equipos si no existen
     $PSQL "INSERT INTO teams(name) VALUES('$winner') ON CONFLICT (name) DO NOTHING;"
     $PSQL "INSERT INTO teams(name) VALUES('$opponent') ON CONFLICT (name) DO NOTHING;"
+
+    # Obtener los IDs de los equipos
+    WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$winner';")
+    OPPONENT_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$opponent';")
+
+    $PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals)
+    VALUES($year, '$round', $WINNER_ID, $OPPONENT_ID, $winner_goals, $opponent_goals);"
   fi
 done
