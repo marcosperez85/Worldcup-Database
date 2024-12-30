@@ -8,13 +8,13 @@ echo -e "\nTotal number of goals in all games from winning teams:"
 echo "$($PSQL "SELECT SUM(winner_goals) FROM games")"
 
 echo -e "\nTotal number of goals in all games from both teams combined:"
-echo
+echo $($PSQL "SELECT SUM(winner_goals) FROM games") + $($PSQL "SELECT SUM(opponent_goals) FROM games")
 
 echo -e "\nAverage number of goals in all games from the winning teams:"
-echo
+echo "$($PSQL "SELECT AVG(winner_goals) FROM games")"
 
 echo -e "\nAverage number of goals in all games from the winning teams rounded to two decimal places:"
-echo
+echo "$($PSQL "SELECT ROUND(AVG(winner_goals),2) FROM games")"
 
 echo -e "\nAverage number of goals in all games from both teams:"
 echo
@@ -32,10 +32,10 @@ echo -e "\nList of teams who played in the 2014 'Eighth-Final' round:"
 echo
 
 echo -e "\nList of unique winning team names in the whole data set:"
-echo
+echo "$($PSQL "SELECT DISTINCT name FROM teams")"
 
 echo -e "\nYear and team name of all the champions:"
-echo
+echo 
 
 echo -e "\nList of teams that start with 'Co':"
-echo
+echo "$($PSQL "SELECT name FROM teams WHERE name LIKE 'Co%'")"
