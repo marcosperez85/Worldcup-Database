@@ -10,9 +10,15 @@ fi
 # Do not change code above this line. Use the PSQL variable above to query your database.
 
 # When you run your insert_data.sh script, it should add each unique team to the teams table. There should be 24 rows
-cat games.csv | while IFS="," READ WINNER
+echo $($PSQL "TRUNCATE games,teams")
+
+cat games.csv | while IFS=',' read -r year round winner opponent winner_goals opponent_goals
 do
-  if [[ $WINNER = "winner" ]]
-    INSERT_WINNER=$($PSQL "INSERT INTO teams VALUES('$WINNER')")
+  # Evalua que las variables declaradas no tengan el valor del encabezado
+  if [[ $winner != winner && $opponent != opponent ]]
+  then
+    # Agregar equipos si no existen
+    $PSQL "INSERT INTO teams(name) VALUES('$winner') ON CONFLICT (name) DO NOTHING;"
+    $PSQL "INSERT INTO teams(name) VALUES('$opponent') ON CONFLICT (name) DO NOTHING;"
   fi
 done
